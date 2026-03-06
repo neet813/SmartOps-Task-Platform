@@ -45,8 +45,12 @@ Live dashboard updates automatically
 
 | | |
 |---|---|
-| 🟦 **Employee Form** | [Submit a Task](https://script.google.com/macros/s/AKfycbwHKLzSxfLbnHalrYSMb6rKrFOAFWFR5xf_O2r4gZPLvawWgrabMqKZ3a5m4VZIMNNW/exec) |
-| 🟧 **Manager Portal** | [Resolve a Task](https://script.google.com/macros/s/AKfycbwHKLzSxfLbnHalrYSMb6rKrFOAFWFR5xf_O2r4gZPLvawWgrabMqKZ3a5m4VZIMNNW/exec?page=resolve) |
+| 🟦 **Employee Form** | 
+![SmartOps Dashboard](Form Submit.png)
+(https://script.google.com/macros/s/AKfycbwHKLzSxfLbnHalrYSMb6rKrFOAFWFR5xf_O2r4gZPLvawWgrabMqKZ3a5m4VZIMNNW/exec) |
+| 🟧 **Manager Portal** | 
+![SmartOps Dashboard](Resolve Form.png)
+(https://script.google.com/macros/s/AKfycbwHKLzSxfLbnHalrYSMb6rKrFOAFWFR5xf_O2r4gZPLvawWgrabMqKZ3a5m4VZIMNNW/exec?page=resolve) |
 
 ---
 
