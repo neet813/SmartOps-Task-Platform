@@ -221,7 +221,7 @@
       problem: document.getElementById("problem").value,
       action: document.getElementById("action").value,
     };
-    try { await fetch(APPS_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }); } catch(e) {}
+    try {   var formData = new FormData();   formData.append("data", JSON.stringify(data));   await fetch(APPS_SCRIPT_URL, {     method: "POST",     mode: "no-cors",     body: formData   }); } catch(e) {}
     document.getElementById("taskRef").textContent = generateRef();
     document.getElementById("taskTime").textContent = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
     document.getElementById("formBody").style.display = "none";
