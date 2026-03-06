@@ -1,4 +1,4 @@
-# SmartOps-Task-Platform
+
 # SmartOps Task Intelligence Platform
 
 **An automated facilities task management system built in Python — because broken things don't fix themselves.**
