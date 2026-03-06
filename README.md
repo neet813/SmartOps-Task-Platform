@@ -156,7 +156,7 @@ SmartOps-Task-Platform/
 
 ## Dashboard Preview
 
-![SmartOps Dashboard](dashboard.png)
+![SmartOps Dashboard](Dashboard.png)
 
 ---
 
