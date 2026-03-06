@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartOps — Submit a Task</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0f2f7;
+    --white: #ffffff;
+    --navy: #0f1f3d;
+    --blue: #2563eb;
+    --blue-light: #eff6ff;
+    --blue-mid: #bfdbfe;
+    --border: #e2e8f0;
+    --border-focus: #2563eb;
+    --text: #0f172a;
+    --text2: #475569;
+    --text3: #94a3b8;
+    --red: #ef4444;
+    --green: #16a34a;
+    --green-light: #f0fdf4;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+    --shadow-lg: 0 4px 6px rgba(0,0,0,0.05), 0 20px 40px rgba(0,0,0,0.1);
+    --radius: 14px;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Figtree', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    font-family: var(--sans);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 48px;
+    background-image: radial-gradient(circle at 20% 20%, rgba(37,99,235,0.06) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 80%, rgba(37,99,235,0.04) 0%, transparent 50%);
+  }
+  .header { width: 100%; max-width: 600px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-icon { width: 38px; height: 38px; background: var(--navy); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .brand-name { font-size: 18px; font-weight: 800; color: var(--navy); letter-spacing: -0.3px; }
+  .brand-sub { font-family: var(--mono); font-size: 9px; color: var(--text3); letter-spacing: 1px; text-transform: uppercase; }
+  .secure-badge { display: flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 10px; color: var(--text3); background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 5px 10px; }
+  .card { width: 100%; max-width: 600px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-lg); overflow: hidden; }
+  .card-header { background: var(--navy); padding: 28px 32px; position: relative; overflow: hidden; }
+  .card-header::before { content: ''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; border-radius: 50%; background: rgba(37,99,235,0.2); }
+  .card-header::after { content: ''; position: absolute; bottom: -60px; left: 30%; width: 240px; height: 240px; border-radius: 50%; background: rgba(255,255,255,0.03); }
+  .card-header-content { position: relative; z-index: 1; }
+  .card-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(37,99,235,0.3); border: 1px solid rgba(37,99,235,0.5); border-radius: 20px; padding: 4px 12px; font-family: var(--mono); font-size: 10px; color: #93c5fd; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+  .card-title { font-size: 26px; font-weight: 800; color: white; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .card-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+  .form-body { padding: 32px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { margin-bottom: 20px; }
+  label { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 7px; letter-spacing: -0.1px; }
+  label .required { color: var(--red); font-size: 14px; line-height: 1; }
+  label .label-hint { font-weight: 400; color: var(--text3); font-size: 12px; margin-left: auto; }
+  input, select, textarea { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-family: var(--sans); font-size: 14px; color: var(--text); background: white; transition: all 0.15s; outline: none; appearance: none; }
+  input:focus, select:focus, textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+  input::placeholder, textarea::placeholder { color: var(--text3); }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
+  textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+  .priority-hint { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .p-hint { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text3); font-family: var(--mono); }
+  .divider { height: 1px; background: var(--border); margin: 24px 0; }
+  .section-label { font-size: 11px; font-weight: 700; color: var(--text3); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
+  .submit-btn { width: 100%; padding: 14px; background: var(--blue); color: white; border: none; border-radius: 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .submit-btn:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(37,99,235,0.3); }
+  .submit-btn.loading { background: #93c5fd; cursor: not-allowed; transform: none; }
+  .success-screen { display: none; padding: 48px 32px; text-align: center; }
+  .success-icon { width: 72px; height: 72px; background: var(--green-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 20px; animation: popIn 0.4s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .success-title { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .success-desc { font-size: 14px; color: var(--text2); line-height: 1.6; margin-bottom: 24px; }
+  .task-ref { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; font-family: var(--mono); font-size: 13px; color: var(--text2); margin-bottom: 24px; }
+  .task-ref span { color: var(--blue); font-weight: 700; }
+  .new-task-btn { padding: 11px 28px; background: var(--navy); color: white; border: none; border-radius: 10px; font-family: var(--sans); font-size: 14px; font-weight: 600; cursor: pointer; }
+  .footer { margin-top: 20px; font-family: var(--mono); font-size: 10px; color: var(--text3); text-align: center; }
+  .field-error { font-size: 12px; color: var(--red); margin-top: 5px; display: none; }
+  input.error, select.error, textarea.error { border-color: var(--red); box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
+  @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } .card-header { padding: 22px; } .form-body { padding: 22px; } }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="brand">
+      <div class="brand-icon">⚙️</div>
+      <div>
+        <div class="brand-name">SmartOps</div>
+        <div class="brand-sub">Task Intelligence Platform</div>
+      </div>
+    </div>
+    <div class="secure-badge">🔒 Secure · Internal Use</div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-content">
+        <div class="card-tag">📋 All Departments</div>
+        <div class="card-title">Submit a Task</div>
+        <div class="card-desc">Report an issue or request. Your task will be automatically prioritised and assigned.</div>
+      </div>
+    </div>
+    <div class="form-body" id="formBody">
+      <div class="section-label">Your Details</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name <span class="required">*</span></label>
+          <input type="text" id="name" placeholder="e.g. Sarah Jones">
+          <div class="field-error" id="nameErr">Please enter your name</div>
+        </div>
+        <div class="form-group">
+          <label>Work Email <span class="required">*</span></label>
+          <input type="email" id="email" placeholder="you@company.com">
+          <div class="field-error" id="emailErr">Please enter a valid email</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Department <span class="required">*</span></label>
+          <select id="dept">
+            <option value="">Select department...</option>
+            <option>Admin</option>
+            <option>Operations</option>
+            <option>Sales</option>
+            <option>Revenue</option>
+            <option>Facilities</option>
+            <option>IT</option>
+            <option>HR</option>
+          </select>
+          <div class="field-error" id="deptErr">Please select your department</div>
+        </div>
+        <div class="form-group">
+          <label>Site / Location <span class="required">*</span></label>
+          <select id="site">
+            <option value="">Select site...</option>
+            <option>Site A - Manchester</option>
+            <option>Site B - Birmingham</option>
+            <option>Site C - Leeds</option>
+            <option>Head Office</option>
+            <option>Remote</option>
+          </select>
+          <div class="field-error" id="siteErr">Please select your site</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Shift Manager <span class="required">*</span> <span class="label-hint">Who is your manager today?</span></label>
+        <input type="text" id="manager" placeholder="e.g. Dave Wilson">
+        <div class="field-error" id="managerErr">Please enter your shift manager</div>
+      </div>
+      <div class="divider"></div>
+      <div class="section-label">Task Details</div>
+      <div class="form-group">
+        <label>Problem Description <span class="required">*</span> <span class="label-hint">Be specific — affects priority score</span></label>
+        <textarea id="problem" placeholder="Describe the issue clearly, e.g. 'Broken toilet on 2nd floor, out of order since 9am'"></textarea>
+        <div class="field-error" id="problemErr">Please describe the problem</div>
+        <div class="priority-hint">
+          <span class="p-hint">🔴 Critical: fire, gas leak, injury</span>
+          <span class="p-hint">🟠 High: broken toilet, heating, lock</span>
+          <span class="p-hint">🟡 Medium: wifi, lighting, printer</span>
+          <span class="p-hint">🟢 Low: parking, chair, desk</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Action Needed <span class="required">*</span></label>
+        <textarea id="action" placeholder="What action do you need taken?" style="min-height:80px"></textarea>
+        <div class="field-error" id="actionErr">Please describe the action needed</div>
+      </div>
+      <button class="submit-btn" onclick="submitForm()" id="submitBtn">
+        <span id="btnText">Submit Task →</span>
+      </button>
+    </div>
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Task Submitted!</div>
+      <div class="success-desc">Your task has been received and will be automatically prioritised. You'll receive an email confirmation once it's resolved.</div>
+      <div class="task-ref">Reference: <span id="taskRef">—</span> · Submitted <span id="taskTime">—</span></div>
+      <button class="new-task-btn" onclick="resetForm()">Submit Another Task</button>
+    </div>
+  </div>
+  <div class="footer">SmartOps Task Intelligence Platform · Internal Use Only · All submissions are monitored</div>
+<script>
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwCWEuNLxhx5kr0KxqR_D7ehVXUjCvvcathGQpMD292rXUm9_2HgydDrvskBo2VnKAP/exec";
+  function validate() {
+    let valid = true;
+    const fields = [
+      { id: "name",    errId: "nameErr",    check: v => v.trim().length > 1 },
+      { id: "email",   errId: "emailErr",   check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+      { id: "dept",    errId: "deptErr",    check: v => v !== "" },
+      { id: "site",    errId: "siteErr",    check: v => v !== "" },
+      { id: "manager", errId: "managerErr", check: v => v.trim().length > 1 },
+      { id: "problem", errId: "problemErr", check: v => v.trim().length > 10 },
+      { id: "action",  errId: "actionErr",  check: v => v.trim().length > 5 },
+    ];
+    fields.forEach(f => {
+      const el = document.getElementById(f.id);
+      const err = document.getElementById(f.errId);
+      if (!f.check(el.value)) { el.classList.add("error"); err.style.display = "block"; valid = false; }
+      else { el.classList.remove("error"); err.style.display = "none"; }
+    });
+    return valid;
+  }
+  function generateRef() { return "TASK-" + Math.random().toString(36).substr(2, 8).toUpperCase(); }
+  async function submitForm() {
+    if (!validate()) return;
+    const btn = document.getElementById("submitBtn");
+    const btnText = document.getElementById("btnText");
+    btn.classList.add("loading");
+    btnText.textContent = "Submitting...";
+    const now = new Date();
+    const data = {
+      timestamp: now.toISOString().slice(0,16).replace("T", " "),
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      site: document.getElementById("site").value,
+      department: document.getElementById("dept").value,
+      manager: document.getElementById("manager").value,
+      problem: document.getElementById("problem").value,
+      action: document.getElementById("action").value,
+    };
+    try { await fetch(APPS_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }); } catch(e) {}
+    document.getElementById("taskRef").textContent = generateRef();
+    document.getElementById("taskTime").textContent = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById("formBody").style.display = "none";
+    document.getElementById("successScreen").style.display = "block";
+  }
+  function resetForm() {
+    document.getElementById("formBody").style.display = "block";
+    document.getElementById("successScreen").style.display = "none";
+    document.getElementById("submitBtn").classList.remove("loading");
+    document.getElementById("btnText").textContent = "Submit Task →";
+    ["name","email","dept","site","manager","problem","action"].forEach(id => { document.getElementById(id).value = ""; document.getElementById(id).classList.remove("error"); });
+  }
+  ["name","email","dept","site","manager","problem","action"].forEach(id => {
+    document.getElementById(id).addEventListener("input", () => { document.getElementById(id).classList.remove("error"); });
+  });
+</script>
+</body>
+</html>
