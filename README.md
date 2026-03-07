@@ -41,6 +41,17 @@ Live dashboard updates automatically
 
 ---
 
+
+## Impact
+- 🚫 Zero tasks lost — overdue detection catches everything within 24hrs
+- ⚡ Priority scoring eliminates manual triage — managers act on data, not guesswork
+- 📊 Average resolution time tracked automatically across all sites
+- 🔁 Recurring tasks save ~8 manual form submissions per month
+- 📧 Automated email alerts mean zero missed escalations
+
+
+---
+
 ## Live Demo
 
 | | |
@@ -73,6 +84,18 @@ Live dashboard updates automatically
 **Auto Scheduler** — The entire system runs on a 30-minute loop via Python threading. No manual triggering needed.
 
 ---
+
+## Email Alerts in Action
+
+**Escalation Alert (sent automatically after 24hrs):**
+![Escalation Email](Escalation-Email-Alert.png)
+
+**Task Resolved Confirmation:**
+![Resolution Email](Task-Resolved-Email.png)
+
+
+---
+
 
 ## Tech Stack
 
