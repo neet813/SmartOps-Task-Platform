@@ -203,7 +203,23 @@ SmartOps-Task-Platform/
 
 ![SmartOps Dashboard](Dashboard.png)
 
+
+
 ---
+
+## 🛠️ Development Journey & Challenges
+
+This project was a collaboration between my operational expertise and AI pair-programming. While I designed the system architecture and priority logic, I used AI to help generate the specific Python syntax and Google API integrations.
+
+**Key challenges I solved during the build:**
+
+* **Handling API Rate Limits:** Google Sheets API has strict limits. I had to implement `time.sleep()` intervals between row updates to prevent the system from being blocked during high-volume processing.
+* **Refining the Scoring Logic:** Initially, the triage engine was too broad. I manually refined the keyword dictionary through several iterations to ensure that high-liability terms (like 'gas' or 'fire') always override general maintenance terms.
+* **The "Row-Shifting" Bug:** I discovered that deleting completed tasks from the top of the sheet caused the script to skip rows. I solved this by implementing a **reverse-index deletion loop**, ensuring the script always stays aligned with the spreadsheet data.
+
+---
+
+
 
 ## Built By
 
