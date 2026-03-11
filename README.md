@@ -83,6 +83,22 @@ Live dashboard updates automatically
 
 **Auto Scheduler** — The entire system runs on a 30-minute loop via Python threading. No manual triggering needed.
 
+
+---
+
+
+
+## Developer’s Logic Log: SmartOps Platform
+
+I built this platform to move away from "WhatsApp-based" operations. Here is the architectural logic behind my decisions:
+
+* **The "Deterministic" Scoring Engine:** I chose a keyword-weighting algorithm over an LLM for task triage. In facilities, you need **predictability**—a "Gas Leak" must *always* be a 100/100 priority. This approach is faster, 100% reliable, and costs $0 to run.
+* **The 24-Hour "Escalation" Loop:** I designed the logic to mirror industry SLA (Service Level Agreement) standards. By comparing the `Current Time` against the `Submission Timestamp`, the script identifies "Stale" tasks and triggers a manager alert, ensuring total accountability.
+* **Hybrid Infrastructure:** I used **Google Apps Script** for the front-end because it integrates natively with Google Sheets. I used **Python** for the back-end (Scoring, Logic, Emails) because it offers more robust scheduling and processing capabilities.
+* **Automation for Compliance:** The "Recurring Task" module eliminates human error. By auto-generating fire safety and maintenance checks on a schedule, I ensured the platform acts as a safety net, not just a logbook.
+
+
+
 ---
 
 ## Email Alerts in Action
